@@ -1,0 +1,227 @@
+#myBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: #ed1b24; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 13px; /* Some padding */
+    border-radius: 35px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+    width: 50px;
+  }
+  
+  #myBtn:hover {
+    background-color: #1f3b47; /* Add a dark-grey background on hover */
+  }
+
+
+  #myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+#myImg:hover {opacity: 0.7;}
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 99; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 75%;
+}
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+@-webkit-keyframes zoom {
+  from {-webkit-transform:scale(1)}
+  to {-webkit-transform:scale(2)}
+}
+
+@keyframes zoom {
+  from {transform:scale(0.4)}
+  to {transform:scale(1)}
+}
+@-webkit-keyframes zoom-out {
+  from {transform:scale(1)}
+  to {transform:scale(0)}
+}
+@keyframes zoom-out {
+  from {transform:scale(1)}
+  to {transform:scale(0)}
+}
+.modal-content, #caption {
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+.out {
+  animation-name: zoom-out;
+  animation-duration: 0.6s;
+}
+@media only screen and (max-width: 700px){
+  .modal-content {
+      width: 100%;
+  }
+}
+
+.card {
+  border: none;
+  box-shadow: 5px 6px 6px 2px #e9ecef;
+  border-radius: 4px
+}
+
+.dots {
+  height: 4px;
+  width: 4px;
+  margin-bottom: 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block
+}
+
+.badge {
+  padding: 7px;
+  padding-right: 9px;
+  padding-left: 16px;
+  box-shadow: 5px 6px 6px 2px #e9ecef
+}
+
+.user-img {
+  margin-top: 4px
+}
+
+.check-icon {
+  font-size: 17px;
+  color: #c3bfbf;
+  top: 1px;
+  position: relative;
+  margin-left: 3px
+}
+
+.form-check-input {
+  margin-top: 6px;
+  margin-left: -24px !important;
+  cursor: pointer
+}
+
+.form-check-input:focus {
+  box-shadow: none
+}
+
+.icons i {
+  margin-left: 8px
+}
+
+.reply {
+  margin-left: 12px
+}
+
+.reply small {
+  color: #b7b4b4
+}
+
+.reply small:hover {
+  color: green;
+  cursor: pointer
+}
+.justify-content-center
+{
+  margin: 20px;
+}
+.time_cmt
+{
+  font-size: 12px;
+  font-style: italic;
+}
+
+.second {
+  width: auto;
+  padding-left: 25px;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 10px 10px 5px #aaaaaa
+}
+
+.text1 {
+  font-size: 13px;
+  font-weight: 500;
+  color: #56575b;
+}
+.text1 img{
+  float: left;
+}
+.cmt_content
+{
+  padding-left: 10px;
+}
+
+
+.text2 {
+  font-size: 15px;
+  font-weight: bold;
+  text-transform: capitalize;
+  margin-left: 6px;
+  color: #56575b;
+  float: left;
+}
+
+.text3 {
+  font-size: 13px;
+  font-weight: 500;
+  margin-right: 4px;
+  color: #828386
+}
+
+.text3o {
+  color: #00a5f4
+}
+
+.text4 {
+  font-size: 13px;
+  font-weight: 500;
+  color: #828386
+}
+
+.text4i {
+  color: #00a5f4
+}
+
+.text4o {
+  color: white
+}
+
+.thumbup {
+  font-size: 13px;
+  font-weight: 500;
+  margin-right: 5px
+}
+.close
+{
+  font-size: 50px;
+}

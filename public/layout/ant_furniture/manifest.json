@@ -1,0 +1,14 @@
+{
+  "nav": {
+    "menu_top": "Menu Top",
+    "menu_footer_1": "Menu footer 1",
+    "menu_footer_2": "Menu footer 2"
+  },
+  "banner_position": {
+    "banner": "Banner",
+    "banner_home_1":"Banner home 1",
+    "banner_home_2":"Banner home 2",
+    "banner_home_3":"Banner home 3"
+  }
+  
+}

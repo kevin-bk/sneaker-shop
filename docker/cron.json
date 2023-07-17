@@ -1,0 +1,12 @@
+{
+    "m2 cron run": {
+        "schedule": "*/2 * * * *",
+        "command": "php ${MAGENTO_DIR}bin/magento cron:run 2>&1 | grep -v 'Ran jobs by schedule' >> ${MAGENTO_DIR}var/log/magento.cron.log",
+        "container": "cli"
+    },
+    "cron backup database": {
+        "schedule": "0 */6 * * *",
+        "command": "mysqldump --user='root' --password=${MYSQL_ROOT_PASSWORD} -h mariadb jekyllskitchen > /home/jekyllskitchen/htdocs/backup/jekyllskitchen.com/jekyllskitchen_$(date \"+%m-%d-%Y-%H-%M-%S\").sql",
+        "container": "cli"
+    }
+}

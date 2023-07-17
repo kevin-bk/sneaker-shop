@@ -1,0 +1,203 @@
+version: '3'
+services:
+    nginx:
+        build: ./build/nginx
+        env_file:
+            - env/user.env
+            - env/nginx.env
+        volumes:
+            - ./conf/nginx:/etc/nginx/conf.d
+            - ./data/ssl:/etc/nginx/ssl
+            - ${WORK_DIR}:${WORK_DIR}:cached
+            - ./conf/nginx/snippets/:/etc/nginx/snippets/
+            - sock_data:/var/run/php
+
+        ports:
+            - "80:80"
+            - "443:443"
+        restart: unless-stopped
+        hostname: nginx
+        container_name: nginx
+
+    # cron:
+    #     image: rogerdz/crontab
+    #     environment:
+    #         - CRONTAB_PROJECT=${COMPOSE_PROJECT_NAME}
+    #     volumes:
+    #         - ${WORK_DIR}:${WORK_DIR}:cached
+    #         - /var/run/docker.sock:/var/run/docker.sock:ro
+    #         - ./cron.json:/opt/crontab/config.json:rw
+    #     restart: unless-stopped
+    #     hostname: cron
+    #     container_name: cron
+    mariadb:
+        image: mariadb:${MARIADB_VERSION}
+        env_file:
+            - env/mysql.env
+        volumes:
+            - ./conf/mariadb/custom.cnf:/etc/mysql/conf.d/custom.cnf
+            - ./data/mysqldata:/var/lib/mysql:delegated
+        restart: unless-stopped
+        hostname: mariadb
+        container_name: mariadb
+
+    cli:
+        build: ./build/php-cli/7.4
+        environment:
+            UID: ${UID}
+            GID: ${GID}
+            # XDEBUG_REMOTE_ENABLE: 1
+        env_file: 
+            - env/user.env
+            - env/blackfire.env
+        volumes:
+#            - ./conf/php/7.4-cli/docker-entrypoint-cli.sh:/docker-custom-entrypoint.sh
+            - ~/.composer:/home/dev/.composer
+            - ~/.cache/composer:/home/dev/.cache/composer
+            - ~/.cache/git:/home/dev/.cache/git
+            - ~/.ssh:/home/dev/.ssh
+            - ~/.gitconfig:/home/dev/.gitconfig
+            - ./conf/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+            - ./conf/php/msmtprc:/etc/msmtprc
+            - ${WORK_DIR}:${WORK_DIR}:cached
+            - ${BASH_ALIASES}:/home/dev/.bash_aliases
+            - ./composer:/usr/bin/composer
+        tty: true
+        stdin_open: true
+        working_dir: ${WORK_DIR}
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        hostname: cli-container
+        restart: unless-stopped
+        container_name: cli
+        ports:
+            - "2222:22"
+
+    cli72:
+        build: ./build/php-cli/7.2
+        environment:
+            UID: ${UID}
+            GID: ${GID}
+            # XDEBUG_REMOTE_ENABLE: 1
+        env_file:
+            - env/user.env
+            - env/blackfire.env
+        volumes:
+            #            - ./conf/php/7.4-cli/docker-entrypoint-cli.sh:/docker-custom-entrypoint.sh
+            - ~/.composer:/home/dev/.composer
+            - ~/.cache/composer:/home/dev/.cache/composer
+            - ~/.cache/git:/home/dev/.cache/git
+            - ~/.ssh:/home/dev/.ssh
+            - ~/.gitconfig:/home/dev/.gitconfig
+            - ./conf/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+            - ./conf/php/msmtprc:/etc/msmtprc
+            - ${WORK_DIR}:${WORK_DIR}:cached
+            - ${BASH_ALIASES}:/home/dev/.bash_aliases
+            - ./composer:/usr/bin/composer
+        tty: true
+        stdin_open: true
+        working_dir: ${WORK_DIR}
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        hostname: cli-container
+        restart: unless-stopped
+        container_name: cli72
+#    cli71:
+#        # image: rogerdz/multi-php-cli
+#        build: ./build/php-cli/7.1
+#        environment:
+#            UID: ${UID}
+#            GID: ${GID}
+#            # XDEBUG_REMOTE_ENABLE: 1
+#        env_file:
+#            - env/user.env
+#            - env/blackfire.env
+#        volumes:
+#            #            - ./conf/php/7.4-cli/docker-entrypoint-cli.sh:/docker-custom-entrypoint.sh
+#            - ~/.composer:/home/dev/.composer
+#            - ~/.cache/composer:/home/dev/.cache/composer
+#            - ~/.cache/git:/home/dev/.cache/git
+#            - ~/.ssh:/home/dev/.ssh
+#            - ~/.gitconfig:/home/dev/.gitconfig
+#            - ./conf/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+#            - ./conf/php/msmtprc:/etc/msmtprc
+#            - ${WORK_DIR}:${WORK_DIR}:cached
+#            - ${BASH_ALIASES}:/home/dev/.bash_aliases
+#        tty: true
+#        stdin_open: true
+#        working_dir: ${WORK_DIR}
+#        extra_hosts:
+#            - "host.docker.internal:host-gateway"
+#        hostname: cli-container
+#        restart: unless-stopped
+#        container_name: cli71
+    #        ports:
+    #            - "2222:22"
+    cli70:
+        # image: rogerdz/multi-php-cli
+        build: ./build/php-cli/7.0
+        environment:
+            UID: ${UID}
+            GID: ${GID}
+            ROOT_PASS: ${ROOT_PASS}
+            # XDEBUG_REMOTE_ENABLE: 1
+        env_file:
+            - env/user.env
+            - env/blackfire.env
+        volumes:
+            #            - ./conf/php/7.4-cli/docker-entrypoint-cli.sh:/docker-custom-entrypoint.sh
+            - ~/.composer:/home/dev/.composer
+            - ~/.cache/composer:/home/dev/.cache/composer
+            - ~/.cache/git:/home/dev/.cache/git
+            - ~/.ssh:/home/dev/.ssh
+            - ~/.gitconfig:/home/dev/.gitconfig
+            - ./conf/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+            - ./conf/php/msmtprc:/etc/msmtprc
+            - ${WORK_DIR}:${WORK_DIR}:cached
+            - ${BASH_ALIASES}:/home/dev/.bash_aliases
+        tty: true
+        stdin_open: true
+        working_dir: ${WORK_DIR}
+#        extra_hosts:
+#            - "host.docker.internal:host-gateway"
+        hostname: cli70-container
+        restart: unless-stopped
+        container_name: cli70
+    #        ports:
+    #            - "2222:22"
+    # elasticsearch:
+    #     image: rogerdz/elasticsearch:${ES_VERSION}
+    #     env_file: env/elasticsearch.env
+    #     volumes:
+    #         - elasticsearch_data:/usr/share/elasticsearch/data
+    #     restart: unless-stopped
+    #     hostname: elasticsearch
+    #     container_name: elasticsearch
+    # redis:
+    #     image: redis:6.0
+    #     restart: unless-stopped
+    #     container_name: redis
+    # varnish:
+    #     image: varnish:${VARNISH_VERSION}
+    #     command: ${VARNISH_PARAMS}
+    #     volumes:
+    #         - ./conf/varnish/default.vcl:/etc/varnish/default.vcl
+    #     restart: unless-stopped
+    #     container_name: varnish
+#        ports:
+#            - "80:80"
+
+    portainer:
+        image: portainer/portainer
+        restart: unless-stopped
+        container_name: portainer
+        hostname: portainer
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - ./data/portainer:/data
+        ports:
+            - "90:9000"
+
+volumes:
+    sock_data:
+    elasticsearch_data:

@@ -1,0 +1,126 @@
+version: '3'
+services:
+    php74:
+        image: rogerdz/php-fpm:7.4
+        env_file: env/user.env
+        volumes:
+            - ./conf/php/custom.ini:/usr/local/etc/php/conf.d/zz-custom.ini
+            - ${WORK_DIR}:${WORK_DIR}:cached
+            - sock_data:/var/run/php
+            - ./conf/php/msmtprc:/etc/msmtprc
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        restart: unless-stopped
+        container_name: php74
+#    php73:
+#        image: rogerdz/php-fpm:7.3
+#        env_file: env/user.env
+#        volumes:
+#            - ./conf/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+#            - ${WORK_DIR}:${WORK_DIR}:cached
+#            - sock_data:/var/run/php
+#            - ./conf/php/msmtprc:/etc/msmtprc
+#        extra_hosts:
+#            - "host.docker.internal:host-gateway"
+#        restart: unless-stopped
+#        container_name: php73
+    php72:
+        image: rogerdz/php-fpm:7.2
+        env_file: env/user.env
+        volumes:
+            - ./conf/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+            - ${WORK_DIR}:${WORK_DIR}:cached
+            - sock_data:/var/run/php
+            - ./conf/php/msmtprc:/etc/msmtprc
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        restart: unless-stopped
+        container_name: php72
+#    php71:
+#        image: rogerdz/php-fpm:7.1
+#        env_file: env/user.env
+#        volumes:
+#            - ./conf/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+#            - ${WORK_DIR}:${WORK_DIR}:cached
+#            - sock_data:/var/run/php
+#            - ./conf/php/msmtprc:/etc/msmtprc
+#        extra_hosts:
+#            - "host.docker.internal:host-gateway"
+#        restart: unless-stopped
+#        container_name: php71
+    php70:
+        image: rogerdz/php-fpm:7.0
+        env_file: env/user.env
+        volumes:
+            - ./conf/php/custom.ini:/usr/local/etc/php/conf.d/zz-custom.ini
+            - ${WORK_DIR}:${WORK_DIR}:cached
+            - sock_data:/var/run/php
+            - ./conf/php/msmtprc:/etc/msmtprc
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        restart: unless-stopped
+        container_name: php70
+    # php56:
+    #     image: rogerdz/php-fpm:5.6
+    #     env_file: env/user.env
+    #     volumes:
+    #         - ./conf/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+    #         - ${WORK_DIR}:${WORK_DIR}:cached
+    #         - sock_data:/var/run/php
+    #         - ./conf/php/msmtprc:/etc/msmtprc
+    #     extra_hosts:
+    #         - "host.docker.internal:host-gateway"
+    #     restart: unless-stopped
+    #     container_name: php56
+
+    #    httpd:
+    #        build: ./build/httpd
+    #        env_file: env/user.env
+    #        ports:
+    #            - "8080:80"
+    #        volumes:
+    #            - ./conf/httpd/vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+    #            - ${WORK_DIR}:${WORK_DIR}:cached
+    #            - sock_data:/var/run/php
+    #        restart: unless-stopped
+    #        container_name: httpd
+
+    #    blackfire:
+    #        image: blackfire/blackfire
+    #        env_file: env/blackfire.env
+    #        restart: unless-stopped
+    #        container_name: blackfire
+    #    mailhog:
+    #        image: mailhog/mailhog
+    #        hostname: mailhog
+    #        container_name: mailhog
+    #        restart: always
+    #        user: root # Needed if using maildir
+    #        environment:
+    #            MH_STORAGE: maildir
+    #            MH_MAILDIR_PATH: /var/data/mailhog
+    #        volumes:
+    #            - ./data/mailhog:/var/data/mailhog
+    #        expose:
+    #            - "1025" # SMTP Server to send mail
+    #            - "8025" # HTTP Server to check mail
+    #        ports:
+    #            - 1025:1025 # smtp server
+    #            - 8025:8025 # web ui
+
+    adminer:
+        image: adminer
+        environment:
+            ADMINER_DEFAULT_SERVER: mariadb
+            ADMINER_PLUGINS: tables-filter json-column table-indexes-structure
+        ports:
+            - 81:8080
+        restart: unless-stopped
+        container_name: adminer
+        hostname: adminer
+    maildev:
+        image: dominikserafin/maildev
+        ports:
+            - 82:1080
+        restart: unless-stopped
+        container_name: maildev

@@ -1,0 +1,11 @@
+# install & setup
+    - composer install
+    - cd docker/
+    - docker-compose up -d
+    - step 2: tạo database sneaker
+    - step 4: php artisan migrate
+    - step 5: php artisan db:seed --class=RoleTableSeeder
+    - step 6: php artisan db:seed --class=UsersTableSeeder
+    - step 7: php artisan db:seed --class=ConfigTableSeeder
+    - step 8: php artisan storage:link
+    - step 9: file hosts: 127.0.0.1 msneaker.vn
